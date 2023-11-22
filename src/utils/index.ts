@@ -7,7 +7,8 @@
  * application
  */
 
-import { validateAuth } from "./auth";
+import { validateAuth, checkIfPasswordExists, checkIfUsernameExists } from "./auth";
+
 
 const generateFullName = (firstName: string, 
   middleName: string, 
@@ -24,5 +25,7 @@ const generateFullName = (firstName: string,
 
 export {
   validateAuth,
+  checkIfPasswordExists,
+  checkIfUsernameExists,
   generateFullName
 }

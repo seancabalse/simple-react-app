@@ -11,8 +11,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
 
 interface User {
-  id: number
-  branchId: number;
+  branchId: string;
   userName: string;
   password: string;
   firstName: string;
@@ -33,7 +32,7 @@ const userSlice = createSlice({
     },
     // Reducer function to delete user from the users state synchronously
     deleteUser: (state, { payload } : PayloadAction<number>) => {
-      return state.filter(({ id }) => id !== payload)
+      return state.filter((_, index) => index !== payload)
     },
     
   },

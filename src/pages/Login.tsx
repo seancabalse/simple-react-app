@@ -56,7 +56,7 @@ function LoginPage() {
     
       branchId: yup
         .string()
-        .matches(/^[A-Za-z0-9]+$/, 'Username should only contain letters and numbers')
+        .matches(/^[A-Za-z0-9]+$/, 'Branch ID should only contain letters and numbers')
         .required('Branch ID is required'),
     
       password: yup
@@ -171,6 +171,7 @@ function LoginPage() {
             : ""}
         </label>
         
+        {/* Error message */}
         <div className={`p-2 bg-red-300 border-1 border-red-500 text-sm text-red-700 flex items-center justify-center ${(validation.valid) ? "hidden" : "" }`}>
           {/* Error field */}
           Error: {validation.message}
