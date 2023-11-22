@@ -77,7 +77,7 @@ function Dashboard() {
     
       branchId: yup
         .string()
-        .matches(/^[A-Za-z0-9]+$/, 'Username should only contain letters and numbers')
+        .matches(/^[A-Za-z0-9]+$/, 'Branch ID should only contain letters and numbers')
         .required('Branch ID is required'),
     
       password: yup
@@ -86,6 +86,11 @@ function Dashboard() {
         .matches(/[0-9]/, 'Password should contain at least 1 digit')
         .matches(/^[A-Za-z0-9]+$/, 'Password should only contain letters and numbers')
         .required('Password is required'),
+        
+      position: yup
+        .string()
+        .matches(/^[A-Za-z0-9]+$/, 'Position should only contain letters and numbers')
+        .required('Position is required'),
     }),
 
     onSubmit: async (values, { resetForm }) => {
@@ -148,17 +153,19 @@ function Dashboard() {
       </div>
       <div className='flex md:flex-row flex-col gap-2'>
         {/* Add user form */}
-        <form className="p-10 flex flex-col border-2 border-black w-full md:w-2/6 min-w-[500px] rounded-md gap-5"
+        <form data-testid="add-new-user-form" className="p-10 flex flex-col border-2 border-black w-full md:w-2/6 min-w-[500px] rounded-md gap-5"
           onSubmit={formik.handleSubmit}>
           
           {/* Branch ID input field */}
           <input className="p-2 border-2 border-black rounded-sm placeholder-gray-500"
+            data-testid="branchId-input"
             id="branchId" name="branchId" type="text" placeholder='Branch ID'
             onChange={formik.handleChange}
             value={formik.values.branchId}
             onBlur={formik.handleBlur}
             />
           <label
+            data-testid="branchId-label"
             className={`block p-1 text-xs font-bold  ${
               formik.touched.branchId && formik.errors.branchId ? "text-red-400" : "hidden"
             }`}
@@ -171,6 +178,7 @@ function Dashboard() {
           
           {/* userName input field */}
           <input className="p-2 border-2 border-black rounded-sm placeholder-gray-500"
+            data-testid="username-input"
             id="userName" name="userName" type="text" placeholder='Username' 
             onChange={formik.handleChange}
             value={formik.values.userName}
@@ -178,6 +186,7 @@ function Dashboard() {
             />
             
           <label
+            data-testid="username-label"
             className={`block p-1 text-xs font-bold  ${
               formik.touched.userName && formik.errors.userName ? "text-red-400" : "hidden"
             }`}
@@ -190,6 +199,7 @@ function Dashboard() {
           
           {/* firstName input field */}
           <input className="p-2 border-2 border-black rounded-sm placeholder-gray-500"
+            data-testid="firstname-input"
             id="firstName" name="firstName" type="text" placeholder='First name' 
             onChange={formik.handleChange}
             value={formik.values.firstName}
@@ -197,6 +207,7 @@ function Dashboard() {
             />
             
           <label
+            data-testid="firstname-label"
             className={`block p-1 text-xs font-bold  ${
               formik.touched.firstName && formik.errors.firstName ? "text-red-400" : "hidden"
             }`}
@@ -209,6 +220,7 @@ function Dashboard() {
           
           {/* middleName input field */}
           <input className="p-2 border-2 border-black rounded-sm placeholder-gray-500"
+            data-testid="middlename-input"
             id="middleName" name="middleName" type="text" placeholder='Middle name' 
             onChange={formik.handleChange}
             value={formik.values.middleName}
@@ -216,6 +228,7 @@ function Dashboard() {
             />
             
           <label
+            data-testid="middlename-label"
             className={`block p-1 text-xs font-bold  ${
               formik.touched.middleName && formik.errors.middleName ? "text-red-400" : "hidden"
             }`}
@@ -228,6 +241,7 @@ function Dashboard() {
           
           {/* lastName input field */}
           <input className="p-2 border-2 border-black rounded-sm placeholder-gray-500"
+            data-testid="lastname-input"
             id="lastName" name="lastName" type="text" placeholder='Last name' 
             onChange={formik.handleChange}
             value={formik.values.lastName}
@@ -235,6 +249,7 @@ function Dashboard() {
             />
             
           <label
+            data-testid="lastname-label"
             className={`block p-1 text-xs font-bold  ${
               formik.touched.lastName && formik.errors.lastName ? "text-red-400" : "hidden"
             }`}
@@ -247,6 +262,7 @@ function Dashboard() {
           
           {/* Position input field */}
           <input className="p-2 border-2 border-black rounded-sm placeholder-gray-500"
+            data-testid="position-input"
             id="position" name="position" type="text" placeholder='Position' 
             onChange={formik.handleChange}
             value={formik.values.position}
@@ -254,6 +270,7 @@ function Dashboard() {
             />
             
           <label
+            data-testid="position-label"
             className={`block p-1 text-xs font-bold  ${
               formik.touched.position && formik.errors.position ? "text-red-400" : "hidden"
             }`}
@@ -269,6 +286,7 @@ function Dashboard() {
           <div className='flex flex-row'>
             {/* Password input field */}
             <input className="p-2 border-2 border-black rounded-sm placeholder-gray-500 w-4/5"
+              data-testid="password-input"
               id="password" name="password" type={inputType} placeholder='Password'
               onChange={formik.handleChange}
               value={formik.values.password}
@@ -276,11 +294,13 @@ function Dashboard() {
               />
             {/* Show/hide password button */}
             <button className="border-2 border-black rounded-sm w-1/5"
+              data-testid="show-password-button"
               onClick={() =>  setShowPassword(!showPassword)}
               type="button"
               >{buttonText}</button>
           </div>
           <label
+            data-testid="password-label"
             className={`block p-1 text-xs font-bold  ${
               formik.touched.password && formik.errors.password ? "text-red-400" : "hidden"
             }`}
@@ -292,7 +312,9 @@ function Dashboard() {
           </label>
           
           {/* Error message */}
-          <div className={`p-2 bg-red-300 border-1 border-red-500 text-sm text-red-700 flex items-center justify-center ${(!validation.valid) ? "hidden" : "" }`}>
+          <div
+            data-testid="error-message-new-user" 
+            className={`p-2 bg-red-300 border-1 border-red-500 text-sm text-red-700 flex items-center justify-center ${(!validation.valid) ? "hidden" : "" }`}>
             {/* Error field */}
             Error: {validation.message}
           </div>
@@ -301,13 +323,16 @@ function Dashboard() {
           
           <div className="flex flex-row gap-2">
             <button className="w-3/6 border border-black rounded-xl"
+              data-testid="reset-button"
               onClick={() => {
                 formik.resetForm();
                 setShowPassword(false);
               }}
               type="reset"
               >Reset</button>
-            <button className="w-3/6 border rounded-xl bg-blue-400 border-blue-600 text-blue-950"
+            <button 
+              data-testid="add-user-button" 
+              className="w-3/6 border rounded-xl bg-blue-400 border-blue-600 text-blue-950"
               type="submit"
               >Add</button>
           
