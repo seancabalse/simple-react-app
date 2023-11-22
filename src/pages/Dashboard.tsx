@@ -140,12 +140,12 @@ function Dashboard() {
   return (
     <div className='p-10'>
       {/* Dashboard header */}
-      <div className="flex justify-between p-10">
+      <div className="flex justify-between py-10">
         {/* userName */}
         <h1 className="text-3xl font-bold">{userData?.userName}</h1>
         {/* Logout button */}
         <button 
-          className='w-36 border border-black rounded-sm p-3'
+          className='w-36 border bg-blue-400 border-blue-600 text-blue-950 rounded-sm p-3'
           onClick={() => handleLogout()}>Logout</button>
       </div>
       <div className='flex md:flex-row flex-col gap-2'>
@@ -277,7 +277,7 @@ function Dashboard() {
               onBlur={formik.handleBlur}
               />
             {/* Show/hide password button */}
-            <button className="border-2 border-black rounded-sm h-full w-1/5"
+            <button className="border-2 border-black rounded-sm w-1/5"
               onClick={() =>  setShowPassword(!showPassword)}
               type="button"
               >{buttonText}</button>
@@ -302,14 +302,14 @@ function Dashboard() {
           {/* Reset and Add button */}
           
           <div className="flex flex-row gap-2">
-            <button className="w-3/6 border border-black"
+            <button className="w-3/6 border border-black rounded-xl"
               onClick={() => {
                 formik.resetForm();
                 setShowPassword(false);
               }}
               type="reset"
               >Reset</button>
-            <button className="w-3/6 border border-black"
+            <button className="w-3/6 border rounded-xl bg-blue-400 border-blue-600 text-blue-950"
               type="submit"
               >Add</button>
           

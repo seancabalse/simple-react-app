@@ -99,12 +99,12 @@ function LoginPage() {
   });
   
   return (
-    <div className='flex justify-center items-center h-screen flex-col'>
+    <div className='flex justify-center items-center h-screen flex-col overflow-x-auto'>
       {/* Login page header */}
       <h1 className="text-3xl font-bold m-10">Login Page</h1>
       
       {/* Login Form */}
-      <form className="p-10 flex flex-col border-2 border-black w-3/5 rounded-md gap-5"
+      <form className="p-10 flex flex-col border-2 border-black w-3/5 rounded-md gap-5 max-w-[600px] min-w-[400px]"
         onSubmit={formik.handleSubmit}>
           
         {/* Branch ID input field */}

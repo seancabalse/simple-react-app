@@ -8,38 +8,51 @@
  */
 
 import React from 'react';
-import { initialUsers } from '@data/users';
 import { generateFullName } from '@utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@hooks/state/store';
 import { deleteUser } from '@hooks/state/users/usersSlice';
+import { useSignedInUser, ISignedInUserContext } from '@context/SignedInUser';
 
 function Table() {
   const users = useSelector((state : RootState) => state.user);
   const dispatch = useDispatch<AppDispatch>()
+  const { userData } = useSignedInUser() as ISignedInUserContext;
+  
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Branch ID</th>
-            <th>Username</th>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Action</th>
+    <div className="overflow-x-auto w-full">
+      <table className='table-auto border w-full min-w-[600px]'>
+        <thead className='border'>
+          <tr className='p-4'>
+            <th className='border'>#</th>
+            <th className='border'>Branch ID</th>
+            <th className='border'>Username</th>
+            <th className='border'>Name</th>
+            <th className='border'>Position</th>
+            <th className='border'>Action</th>
           </tr>
         </thead>
         <tbody>
         {users.map((user, index) => (
           <tr key={index}>
-            <td>{index + 1}</td>
-            <td>{user.branchId}</td>
-            <td>{user.userName}</td>
-            <td>{generateFullName(user.firstName, user.middleName, user.lastName)}</td>
-            <td>{user.position}</td>
-            <td>
-              <button onClick={() => dispatch(deleteUser(user.id))}>Remove</button>
+            <td className='border pl-2'>{index + 1}</td>
+            <td className='border pl-2'>{user.branchId}</td>
+            <td className='border pl-2'>{user.userName}</td>
+            <td className='border pl-2'>{generateFullName(user.firstName, user.middleName, user.lastName)}</td>
+            <td className='border pl-2'>{user.position}</td>
+            <td className='border flex items-center justify-center group relative'>
+              <button className={`border-1 py-1 px-4 rounded-md ${(userData?.userName === user.userName) ? `bg-gray-300 text-gray-500` : "border-gray-500 bg-red-300" }`}
+                disabled={userData?.userName === user.userName}
+                onClick={() => dispatch(deleteUser(index))}>Remove</button>
+                
+                {
+                  (userData?.userName === user.userName) && 
+                  (
+                  <span className="pointer-events-none absolute -top-7 right-1 w-max rounded bg-gray-900 px-2 py-1 text-sm font-medium text-gray-50 opacity-0 shadow transition-opacity group-hover:opacity-100"> 
+                    Unable to remove logged in user
+                  </span>
+                  )
+                }
             </td>
           </tr>
         ))}
