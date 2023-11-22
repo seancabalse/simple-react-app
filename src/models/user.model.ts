@@ -7,8 +7,7 @@
  */
 
 export interface User {
-  id: number
-  branchId: number;
+  branchId: string;
   userName: string;
   password: string;
   firstName: string;

@@ -14,6 +14,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { SignedInUserProvider } from '../../../src/context/SignedInUser';
 import Dashboard from '../../../src/pages/Dashboard';
 import * as utilsExports from "../../../src/utils"
+import { SignedInUserProvider, useSignedInUser } from '../../../src/context/SignedInUser';
+import { renderHook } from '@testing-library/react-hooks'
 
 describe('Dashboard Page', () => {
   const origLocation = window.location;
@@ -43,10 +45,8 @@ describe('Dashboard Page', () => {
    describe('Dashboard Page Elements', () => {
     
     it('Should render a header with the signed in username`', () => {
-
-      screen.debug();
       
-      
+      screen.debug()
     });
   });
 });
