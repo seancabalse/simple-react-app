@@ -11,6 +11,7 @@ import { AppRoutes } from "./routes"
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from "react-redux";
 import { store } from "@hooks/state/store";
+import { SignedInUserProvider } from "./context/SignedInUser";
 
 
 function App() {
@@ -19,7 +20,9 @@ function App() {
     <>
       <Provider store={store}>
         <BrowserRouter>
+        <SignedInUserProvider>
           <AppRoutes />
+        </SignedInUserProvider>
         </BrowserRouter>
       </Provider>
     </>

@@ -17,6 +17,7 @@ export default defineConfig({
       "@utils": path.resolve(__dirname, "./src/utils"),
       "@models": path.resolve(__dirname, "./src/models"),
       "@data": path.resolve(__dirname, "./src/data"),
+      "@context": path.resolve(__dirname, "./src/context"),
     },
   },
   plugins: [react()],

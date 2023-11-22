@@ -13,6 +13,7 @@ import * as yup from "yup";
 import { useSelector } from 'react-redux';
 import { RootState } from '@hooks/state/store';
 import { validateAuth } from '@utils/auth';
+import { useSignedInUser, ISignedInUserContext } from '@context/SignedInUser';
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ function LoginPage() {
     valid: true,
     message: ""
   });
+  
+  const { setIsSignedIn, setUserData } = useSignedInUser() as ISignedInUserContext;
   
   
   const formik = useFormik({
@@ -68,9 +71,11 @@ function LoginPage() {
         
       // Simulates a mock call and to avoid synchronously navigating
       await  new Promise((resolve) => setTimeout(resolve, 500));
-      const { valid, message } = validateAuth({ values, users});
+      const { valid, message, data } = validateAuth({ values, users});
       
       if (valid) {
+        setIsSignedIn(true);
+        setUserData(data);
         navigate('/dashboard');
       }
       

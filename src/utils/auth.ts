@@ -10,11 +10,8 @@ import { User } from "../models/user.model"
 
 
 const validateAuth = ({ values, users }) => {
-  console.log(values);
-  console.log(users);
   const { username, password, branchId } = values;
   const user = users.find((u: User) => u.userName === username);
-  console.log(user);
 
   if (!user) {
     return {
@@ -39,7 +36,8 @@ const validateAuth = ({ values, users }) => {
   
   return {
     valid: true,
-    message: ""
+    message: "",
+    data: user
   };
 }
 
