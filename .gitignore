@@ -26,3 +26,6 @@ dist-ssr
 # Environment variable files
 .env
 .env.*
+
+# Coverate
+coverage/*

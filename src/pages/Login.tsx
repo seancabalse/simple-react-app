@@ -5,7 +5,6 @@
  * @modify date 2023-11-22 08:08:50
  * @desc This file houses the code for the Login page of the application
  */
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useTogglePassword from '@hooks/useTogglePassword';
 import { useFormik } from "formik";
@@ -14,15 +13,13 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@hooks/state/store';
 import { validateAuth } from '@utils/auth';
 import { useSignedInUser, ISignedInUserContext } from '@context/SignedInUser';
+import { useValidation } from "@hooks/useValidation"
 
 function LoginPage() {
   const navigate = useNavigate();
   const { showPassword, setShowPassword, buttonText, inputType } = useTogglePassword()
   const users = useSelector((state : RootState) => state.user);
-  const [ validation, setValidation ] = useState({
-    valid: true,
-    message: ""
-  });
+  const { validation, setValidation } = useValidation()
   
   const { setIsSignedIn, setUserData } = useSignedInUser() as ISignedInUserContext;
   
@@ -167,7 +164,7 @@ function LoginPage() {
         {/* Error message */}
         <div 
           data-testid="error-message" 
-          className={`p-2 bg-red-300 border-1 border-red-500 text-sm text-red-700 flex items-center justify-center ${(validation.valid) ? "hidden" : "" }`}>
+          className={`p-2 bg-red-300 border-1 border-red-500 text-sm text-red-700 flex items-center justify-center ${(!validation.valid) ? "hidden" : "" }`}>
           {/* Error field */}
           Error: {validation.message}
         </div>

@@ -17,6 +17,7 @@ import { AppDispatch, RootState } from '@hooks/state/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '@hooks/state/users/usersSlice';
 import { checkIfPasswordExists, checkIfUsernameExists } from '@utils/auth';
+import { useValidation } from '@hooks/useValidation';
 
 function Dashboard() {
   const users = useSelector((state : RootState) => state.user);
@@ -24,17 +25,14 @@ function Dashboard() {
   const navigate = useNavigate();
   const { showPassword, setShowPassword, buttonText, inputType } = useTogglePassword()
   const { isSignedIn, userData, setIsSignedIn, setUserData } = useSignedInUser() as ISignedInUserContext;
-  const [ validation, setValidation ] = useState({
-    valid: true,
-    message: ""
-  });
+  const  { validation, setValidation } = useValidation();
   
   // This checks if the user indeed signed in or not
-  /* useEffect(() => {
+  useEffect(() => {
     if (!isSignedIn) {
       navigate('/');
     }
-  }, [isSignedIn, navigate]); */
+  }, [isSignedIn, navigate]);
   
   const handleLogout = async () => {
     setIsSignedIn(false);
@@ -294,7 +292,7 @@ function Dashboard() {
           </label>
           
           {/* Error message */}
-          <div className={`p-2 bg-red-300 border-1 border-red-500 text-sm text-red-700 flex items-center justify-center ${(validation.valid) ? "hidden" : "" }`}>
+          <div className={`p-2 bg-red-300 border-1 border-red-500 text-sm text-red-700 flex items-center justify-center ${(!validation.valid) ? "hidden" : "" }`}>
             {/* Error field */}
             Error: {validation.message}
           </div>
