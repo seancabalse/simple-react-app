@@ -40,20 +40,6 @@ function LoginPage() {
         .matches(/^[A-Za-z0-9]+$/, 'Username should only contain letters and numbers')
         .required('Username is required'),
     
-     /*  firstName: yup
-        .string()
-        .matches(/^[A-Za-z]+$/, 'First name should only contain letters')
-        .required('First name is required'),
-    
-      lastName: yup
-        .string()
-        .matches(/^[A-Za-z]+$/, 'Last name should only contain letters')
-        .required('Last name is required'),
-    
-      middleName: yup
-        .string()
-        .matches(/^[A-Za-z]+$/, 'Middle name should only contain letters'), */
-    
       branchId: yup
         .string()
         .matches(/^[A-Za-z0-9]+$/, 'Branch ID should only contain letters and numbers')
@@ -62,8 +48,8 @@ function LoginPage() {
       password: yup
         .string()
         .min(8, 'Password should be at least 8 characters')
+        .matches(/^[A-Za-z0-9]+$/, 'Password should only contain letters and numbers')
         .matches(/[0-9]/, 'Password should contain at least 1 digit')
-        // .matches(/[!@#$%^&*(),.?":{}|<>]/, 'Password should contain at least 1 special character')
         .required('Password is required'),
     }),
 
@@ -104,17 +90,19 @@ function LoginPage() {
       <h1 className="text-3xl font-bold m-10">Login Page</h1>
       
       {/* Login Form */}
-      <form className="p-10 flex flex-col border-2 border-black w-3/5 rounded-md gap-5 max-w-[600px] min-w-[400px]"
+      <form data-testid="login-form" className="p-10 flex flex-col border-2 border-black w-3/5 rounded-md gap-5 max-w-[600px] min-w-[400px]"
         onSubmit={formik.handleSubmit}>
           
         {/* Branch ID input field */}
         <input className="p-2 border-2 border-black rounded-sm placeholder-gray-500"
+          data-testid="branchId-input"
           id="branchId" name="branchId" type="text" placeholder='Branch ID'
           onChange={formik.handleChange}
           value={formik.values.branchId}
           onBlur={formik.handleBlur}
           />
         <label
+          data-testid="branchId-label"
           className={`block p-1 text-xs font-bold  ${
             formik.touched.branchId && formik.errors.branchId ? "text-red-400" : "hidden"
           }`}
@@ -127,6 +115,7 @@ function LoginPage() {
         
         {/* Username input field */}
         <input className="p-2 border-2 border-black rounded-sm placeholder-gray-500"
+          data-testid="username-input"
           id="username" name="username" type="text" placeholder='Username' 
           onChange={formik.handleChange}
           value={formik.values.username}
@@ -134,6 +123,7 @@ function LoginPage() {
           />
           
         <label
+          data-testid="username-label"
           className={`block p-1 text-xs font-bold  ${
             formik.touched.username && formik.errors.username ? "text-red-400" : "hidden"
           }`}
@@ -149,6 +139,7 @@ function LoginPage() {
         <div className='flex flex-row'>
           {/* Password input field */}
           <input className="p-2 border-2 border-black rounded-sm placeholder-gray-500 w-4/5"
+            data-testid="password-input"
             id="password" name="password" type={inputType} placeholder='Password'
             onChange={formik.handleChange}
             value={formik.values.password}
@@ -156,11 +147,13 @@ function LoginPage() {
             />
           {/* Show/hide password button */}
           <button className="border-2 border-black rounded-sm h-full w-1/5"
+            data-testid="show-password-button"
             onClick={() =>  setShowPassword(!showPassword)}
             type="button"
             >{buttonText}</button>
         </div>
         <label
+          data-testid="password-label"
           className={`block p-1 text-xs font-bold  ${
             formik.touched.password && formik.errors.password ? "text-red-400" : "hidden"
           }`}
@@ -172,11 +165,13 @@ function LoginPage() {
         </label>
         
         {/* Error message */}
-        <div className={`p-2 bg-red-300 border-1 border-red-500 text-sm text-red-700 flex items-center justify-center ${(validation.valid) ? "hidden" : "" }`}>
+        <div 
+          data-testid="error-message" 
+          className={`p-2 bg-red-300 border-1 border-red-500 text-sm text-red-700 flex items-center justify-center ${(validation.valid) ? "hidden" : "" }`}>
           {/* Error field */}
           Error: {validation.message}
         </div>
-        <button className='border-2 border-black rounded-sm p-3' type="submit">Submit</button>
+        <button data-testid="login-submit-button" className='border-2 border-black rounded-sm p-3' type="submit">Submit</button>
       </form>
       
       

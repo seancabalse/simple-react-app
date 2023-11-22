@@ -86,7 +86,7 @@ function Dashboard() {
         .string()
         .min(8, 'Password should be at least 8 characters')
         .matches(/[0-9]/, 'Password should contain at least 1 digit')
-        // .matches(/[!@#$%^&*(),.?":{}|<>]/, 'Password should contain at least 1 special character')
+        .matches(/^[A-Za-z0-9]+$/, 'Password should only contain letters and numbers')
         .required('Password is required'),
     }),
 
