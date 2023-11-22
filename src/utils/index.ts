@@ -1,4 +1,15 @@
-export const generateFullName = (firstName: string, 
+/**
+ * @author seancabalse
+ * @email seancabalse.dev@gmail.com
+ * @create date 2023-11-22 10:37:18
+ * @modify date 2023-11-22 10:37:18
+ * @desc This file houses the different utitlity functions for the
+ * application
+ */
+
+import { validateAuth } from "./auth";
+
+const generateFullName = (firstName: string, 
   middleName: string, 
   lastName: string): string => {
   
@@ -9,4 +20,9 @@ export const generateFullName = (firstName: string,
   const fullName = `${firstName} ${middleInitial}${lastName}`;
 
   return fullName.trim(); // Trim to remove any leading/trailing whitespaces
+}
+
+export {
+  validateAuth,
+  generateFullName
 }

@@ -34,7 +34,8 @@ const userSlice = createSlice({
     // Reducer function to delete user from the users state synchronously
     deleteUser: (state, { payload } : PayloadAction<number>) => {
       return state.filter(({ id }) => id !== payload)
-    }
+    },
+    
   },
   extraReducers: (builder) => {
     builder
